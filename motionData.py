@@ -10,12 +10,16 @@ sitDataKenneth = pd.read_csv('data/test_sit_Kennethdata.csv', sep=',', usecols=c
 standDataKenneth = pd.read_csv('data/test_stand_Kennethdata.csv', sep=',', usecols=colnames)
 walkDataKenneth = pd.read_csv('data/test_walk_Kennethdata.csv', sep=',', usecols=colnames)
 
+sitDataKenneth2 = pd.read_csv('data/test_sit_Kennethdata2.csv', sep=',', usecols=colnames)
+standDataKenneth2 = pd.read_csv('data/test_stand_Kennethdata2.csv', sep=',', usecols=colnames)
+walkDataKenneth2 = pd.read_csv('data/test_walk_Kennethdata2.csv', sep=',', usecols=colnames)
+
 dataSets = [sitData, standData, walkData, sitDataKenneth, standDataKenneth, walkDataKenneth]
 
 # combining data
-combinedSitData = pd.concat([sitData, sitDataKenneth])
-combinedStandData = pd.concat([standData, standDataKenneth])
-combinedWalkData = pd.concat([walkData, walkDataKenneth])
+combinedSitData = pd.concat([sitData, sitDataKenneth, sitDataKenneth2])
+combinedStandData = pd.concat([standData, standDataKenneth, standDataKenneth2])
+combinedWalkData = pd.concat([walkData, walkDataKenneth, walkDataKenneth2])
 
 combinedData = [combinedSitData, combinedStandData, combinedWalkData]
 
@@ -26,11 +30,12 @@ combinedWalkData['energy'] = calcEnergy(combinedWalkData)
 
 # deletes columns that are not needed
 # delColnames = ['timestamp', 'accx', 'accy', 'accz']
-# # delColnames = ['timestamp', 'energy']
+# delColnames = ['timestamp', 'energy']
+delColnames = ['timestamp']
 # # delColnames = ['timestamp', 'energy', 'Pitch_sensor1']
-# deleteColumns(combinedSitData, delColnames)
-# deleteColumns(combinedStandData, delColnames)
-# deleteColumns(combinedWalkData, delColnames)
+deleteColumns(combinedSitData, delColnames)
+deleteColumns(combinedStandData, delColnames)
+deleteColumns(combinedWalkData, delColnames)
 
 # combing datasets together
 motionDataset = pd.concat(combinedData)
@@ -45,8 +50,8 @@ targetNames = [targetPair[x] for x in target]
 nSamples = len(target)
 
 # some plotting
-truncatedWalkData = combinedWalkData[:len(sitData)]
-x = truncatedWalkData['timestamp']
-y = truncatedWalkData['energy']
-plt.plot(x, y)
-plt.show()
+# truncatedWalkData = combinedWalkData[:len(sitData)]
+# x = truncatedWalkData['timestamp']
+# y = truncatedWalkData['energy']
+# plt.plot(x, y)
+# plt.show()

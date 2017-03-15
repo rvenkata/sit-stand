@@ -5,17 +5,20 @@ import matplotlib.pyplot as plt
 
 # computing mean values in intervals
 timeSampleRate = 0.5
-sitData = createIntervalDataset(md.sitData, timeSampleRate)
-standData = createIntervalDataset(md.standData, timeSampleRate)
-walkData = createIntervalDataset(md.walkData, timeSampleRate)
-sitDataKenneth = createIntervalDataset(md.sitDataKenneth, timeSampleRate)
-standDataKenneth = createIntervalDataset(md.standDataKenneth, timeSampleRate)
-walkDataKenneth = createIntervalDataset(md.walkDataKenneth, timeSampleRate)
+sitData = createMovingIntervalDataset(md.sitData, timeSampleRate)
+standData = createMovingIntervalDataset(md.standData, timeSampleRate)
+walkData = createMovingIntervalDataset(md.walkData, timeSampleRate)
+sitDataKenneth = createMovingIntervalDataset(md.sitDataKenneth, timeSampleRate)
+standDataKenneth = createMovingIntervalDataset(md.standDataKenneth, timeSampleRate)
+walkDataKenneth = createMovingIntervalDataset(md.walkDataKenneth, timeSampleRate)
+sitDataKenneth2 = createMovingIntervalDataset(md.sitDataKenneth2, timeSampleRate)
+standDataKenneth2 = createMovingIntervalDataset(md.standDataKenneth2, timeSampleRate)
+walkDataKenneth2 = createMovingIntervalDataset(md.walkDataKenneth2, timeSampleRate)
 
 # combining data together
-combinedSitData = pd.concat([sitData, sitDataKenneth])
-combinedStandData = pd.concat([standData, standDataKenneth])
-combinedWalkData = pd.concat([walkData, walkDataKenneth])
+combinedSitData = pd.concat([sitData, sitDataKenneth, sitDataKenneth2])
+combinedStandData = pd.concat([standData, standDataKenneth, standDataKenneth2])
+combinedWalkData = pd.concat([walkData, walkDataKenneth, walkDataKenneth2])
 
 combinedData = [combinedSitData, combinedStandData, combinedWalkData]
 
@@ -26,11 +29,12 @@ combinedWalkData['energy'] = calcEnergy(combinedWalkData)
 
 # deletes columns that are not needed
 # using energy with pitch
-delColnames = ['timestamp', 'accx', 'accy', 'accz']
+# delColnames = ['timestamp', 'accx', 'accy', 'accz']
 # using raw acceleration only
 # delColnames = ['timestamp', 'energy', 'Pitch_sensor1']
 # using acceleration and pitch
 # delColnames = ['timestamp', 'energy']
+delColnames = ['timestamp']
 deleteColumns(combinedSitData, delColnames)
 deleteColumns(combinedStandData, delColnames)
 deleteColumns(combinedWalkData, delColnames)
@@ -46,10 +50,3 @@ walkDataTarget = createTarget(combinedWalkData, 2)
 target = sitDataTarget + standDataTarget + walkDataTarget
 targetNames = [targetPair[x] for x in target]
 nSamples = len(target)
-
-# plotting data
-# truncatedWalkData = combinedWalkData[:300]
-# x = truncatedWalkData['timestamp']
-# y = truncatedWalkData['accz']
-# plt.plot(x, y)
-# plt.show()

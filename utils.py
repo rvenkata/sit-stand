@@ -25,7 +25,6 @@ def createTarget(data, targetValue):
         target.append(targetValue)
     return target
 
-
 # split data by specified time intervals returns list of lists that contains indecies that are in the same interval
 def createIntervalIndex(data, interval):
     timeStepCounter = 0
@@ -60,4 +59,33 @@ def createIntervalDataset(data, interval):
         else:
             resultIntervalValues = np.vstack([resultIntervalValues, averageIntervalValues])
     return pd.DataFrame(data=resultIntervalValues, columns=data.columns)
+
+def createMovingIntervalDataset(data, timeSampleRate):
+    resultIntervalValues = None
+
+    for i in range(0, len(data.values)):
+        startTimeStamp = data.values[i][0]
+        timeIndex = 1
+
+        timeElapsed = 0
+        while (timeElapsed < timeSampleRate) and (i + timeIndex) < len(data.values):
+                nextTimeStamp = data.values[i + timeIndex][0]
+                timeDifference = nextTimeStamp - startTimeStamp
+                startTimeStamp = nextTimeStamp
+                timeElapsed += timeDifference
+                timeIndex += 1
+
+        averageIntervalValues = data.values[range(i, i + timeIndex)].mean(axis=0)
+
+        if resultIntervalValues is None:
+            resultIntervalValues = averageIntervalValues
+        else:
+            resultIntervalValues = np.vstack([resultIntervalValues, averageIntervalValues])
+
+        if i + timeIndex == len(data.values):
+            break
+
+
+    return pd.DataFrame(data=resultIntervalValues, columns=data.columns)
+
 
