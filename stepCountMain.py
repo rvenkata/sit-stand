@@ -1,4 +1,5 @@
-import motionData as md
+# import motionData as md
+import dataReader as md
 import adaptiveJerkPaceBuffer as ajpb
 import adaptiveJerkPaceThreshold as ajpt
 import adaptiveStepJerkThreshold as asjt
@@ -28,21 +29,21 @@ plt.legend()
 plt.show()
 
 # Adaptive Step Jerk Buffer
-peaks, troughs, avgs = ajpb.adaptive_jerk_pace_buffer(r, timestamps)
-peak_ts = [peak['ts'] for peak in peaks]
-peak_val = [peak['val'] for peak in peaks]
-trough_ts = [trough['ts'] for trough in troughs]
-trough_val = [trough['val'] for trough in troughs]
-print("Adaptive Jerk Pace Buffer Steps:", len(troughs))
-# print("Final Step Jerk Average:", avgs[-1][1])
-
-plt.plot(timestamps, r, 'b-', linewidth=2)
-plt.plot(peak_ts, peak_val, 'go')
-plt.plot(trough_ts, trough_val, 'ro')
-plt.plot(avgs.T[0], avgs.T[1], 'r--', linewidth=2)
-plt.plot(avgs.T[0], avgs.T[2], 'g--', linewidth=2)
-plt.title(" - Adaptive Jerk Pace Buffer")
-plt.xlabel('Time [sec]')
-plt.grid()
-plt.legend()
-plt.show()
+# peaks, troughs, avgs = ajpb.adaptive_jerk_pace_buffer(r, timestamps)
+# peak_ts = [peak['ts'] for peak in peaks]
+# peak_val = [peak['val'] for peak in peaks]
+# trough_ts = [trough['ts'] for trough in troughs]
+# trough_val = [trough['val'] for trough in troughs]
+# print("Adaptive Jerk Pace Buffer Steps:", len(troughs))
+# # print("Final Step Jerk Average:", avgs[-1][1])
+#
+# plt.plot(timestamps, r, 'b-', linewidth=2)
+# plt.plot(peak_ts, peak_val, 'go')
+# plt.plot(trough_ts, trough_val, 'ro')
+# plt.plot(avgs.T[0], avgs.T[1], 'r--', linewidth=2)
+# plt.plot(avgs.T[0], avgs.T[2], 'g--', linewidth=2)
+# plt.title(" - Adaptive Jerk Pace Buffer")
+# plt.xlabel('Time [sec]')
+# plt.grid()
+# plt.legend()
+# plt.show()

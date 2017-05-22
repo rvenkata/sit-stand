@@ -14,10 +14,14 @@ walkDataKenneth = createMovingIntervalDataset(md.walkDataKenneth, timeSampleRate
 sitDataKenneth2 = createMovingIntervalDataset(md.sitDataKenneth2, timeSampleRate)
 standDataKenneth2 = createMovingIntervalDataset(md.standDataKenneth2, timeSampleRate)
 walkDataKenneth2 = createMovingIntervalDataset(md.walkDataKenneth2, timeSampleRate)
+standData3 = createMovingIntervalDataset(md.standData3, timeSampleRate)
+standData4 = createMovingIntervalDataset(md.standData4, timeSampleRate)
+standData5 = createMovingIntervalDataset(md.standData5, timeSampleRate)
+sitData3 = createMovingIntervalDataset(md.sitData3, timeSampleRate)
 
 # combining data together
-combinedSitData = pd.concat([sitData, sitDataKenneth, sitDataKenneth2])
-combinedStandData = pd.concat([standData, standDataKenneth, standDataKenneth2])
+combinedSitData = pd.concat([sitData, sitDataKenneth, sitDataKenneth2, sitData3])
+combinedStandData = pd.concat([standData, standDataKenneth, standDataKenneth2, standData3, standData4, standData5])
 combinedWalkData = pd.concat([walkData, walkDataKenneth, walkDataKenneth2])
 
 combinedData = [combinedSitData, combinedStandData, combinedWalkData]

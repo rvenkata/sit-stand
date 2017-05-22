@@ -25,6 +25,11 @@ def createTarget(data, targetValue):
         target.append(targetValue)
     return target
 
+def createTargetFromLength(length, targetValue):
+    target = []
+    for i in range(length):
+        target.append(targetValue)
+    return target
 # split data by specified time intervals returns list of lists that contains indecies that are in the same interval
 def createIntervalIndex(data, interval):
     timeStepCounter = 0
@@ -69,11 +74,11 @@ def createMovingIntervalDataset(data, timeSampleRate):
 
         timeElapsed = 0
         while (timeElapsed < timeSampleRate) and (i + timeIndex) < len(data.values):
-                nextTimeStamp = data.values[i + timeIndex][0]
-                timeDifference = nextTimeStamp - startTimeStamp
-                startTimeStamp = nextTimeStamp
-                timeElapsed += timeDifference
-                timeIndex += 1
+            nextTimeStamp = data.values[i + timeIndex][0]
+            timeDifference = nextTimeStamp - startTimeStamp
+            startTimeStamp = nextTimeStamp
+            timeElapsed += timeDifference
+            timeIndex += 1
 
         averageIntervalValues = data.values[range(i, i + timeIndex)].mean(axis=0)
 
@@ -88,4 +93,18 @@ def createMovingIntervalDataset(data, timeSampleRate):
 
     return pd.DataFrame(data=resultIntervalValues, columns=data.columns)
 
+def createSample(dataset):
+    datasetSize = float(len(dataset))
+    sample = [0, 0, 0, 0, 0]
+    for data in dataset:
+        energy = sqrt(data[8]*data[8] + data[9]*data[9] + data[10]*data[10])
+        sample[0] += data[6]
+        sample[1] += data[8]
+        sample[2] += data[9]
+        sample[3] += data[10]
+        sample[4] += energy
 
+    for i in range(0, len(sample)):
+        sample[i] = sample[i] / datasetSize
+
+    return sample

@@ -14,11 +14,19 @@ sitDataKenneth2 = pd.read_csv('data/test_sit_Kennethdata2.csv', sep=',', usecols
 standDataKenneth2 = pd.read_csv('data/test_stand_Kennethdata2.csv', sep=',', usecols=colnames)
 walkDataKenneth2 = pd.read_csv('data/test_walk_Kennethdata2.csv', sep=',', usecols=colnames)
 
+standData3 = pd.read_csv('data/test_stand3.csv', sep=',', usecols=colnames)
+
+standData4 = pd.read_csv('data/test_stand4.csv', sep=',', usecols=colnames)
+
+sitData3 = pd.read_csv('data/test_sit3.csv', sep=',', usecols=colnames)
+
+standData5 = pd.read_csv('data/test_stand5.csv', sep=',', usecols=colnames)
+
 dataSets = [sitData, standData, walkData, sitDataKenneth, standDataKenneth, walkDataKenneth]
 
 # combining data
-combinedSitData = pd.concat([sitData, sitDataKenneth, sitDataKenneth2])
-combinedStandData = pd.concat([standData, standDataKenneth, standDataKenneth2])
+combinedSitData = pd.concat([sitData, sitDataKenneth, sitDataKenneth2, sitData3])
+combinedStandData = pd.concat([standData, standDataKenneth, standDataKenneth2, standData3, standData4])
 combinedWalkData = pd.concat([walkData, walkDataKenneth, walkDataKenneth2])
 
 combinedData = [combinedSitData, combinedStandData, combinedWalkData]

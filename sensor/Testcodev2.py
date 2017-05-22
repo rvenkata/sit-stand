@@ -31,5 +31,3 @@ while(1): #Main Loop
     #print struct.unpack('fffffffffffffffffffffffff',test)
     time.sleep(10/1000000) # sleep 10 microseconds
     print (".")
-
-    

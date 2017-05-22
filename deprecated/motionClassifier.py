@@ -6,18 +6,14 @@ from sklearn.externals import joblib
 
 # using moving average dataset
 X, y = md.motionDataset, md.targetNames
-Xtrain, Xtest, ytrain, ytest = train_test_split(X, y)
-clf = RandomForestClassifier(n_estimators=100, random_state=0)
-clf.fit(Xtrain, ytrain)
-ypred = clf.predict(Xtest)
-
-# cross validation
-print ("******results for standard random forrest******")
-print (metrics.classification_report(ytest, ypred))
-print (metrics.confusion_matrix(ytest, ypred))
 
 # re-train using the entire dataset
 clf = RandomForestClassifier(n_estimators=100, random_state=0)
 clf.fit(X, y)
 
+x = md.combinedStandData
+print(clf.predict(x))
 joblib.dump(clf, 'model/rf_classifier.pkl') 
+
+clf2 = joblib.load('model/rf_classifier.pkl')
+print(clf2.predict(x))
